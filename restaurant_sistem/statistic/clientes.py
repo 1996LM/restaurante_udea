@@ -2,8 +2,8 @@ def get_edad_media(database)->float:
     data = database.get_all_data()
 
     mean=0
-    for customers_data in data.values():
-        mean += customers_data["edad"]
+    for clientes_data in data.values():
+        mean += clientes_data["edad"]
     return mean/database.count()
 
 
@@ -11,19 +11,19 @@ def get_costo_medio(database)->float:
     data = database.get_all_data()
 
     mean=0
-    for customers_data in data.values():
-        mean += customers_data["costo"]
+    for clientes_data in data.values():
+        mean += clientes_data["costo"]
     return mean/database.count()
 
 def visitas_mes(database):
     data = database.get_all_data()
 
     visitas_por_mes = {}
-    for customers_data in data.values():
-        if customers_data in visitas_por_mes:
-            visitas_por_mes[customers_data]+=1
+    for clientes_data in data.values():
+        if clientes_data in visitas_por_mes:
+            visitas_por_mes[clientes_data]+=1
         else:
-            visitas_por_mes[customers_data]=0
+            visitas_por_mes[clientes_data]=0
     return visitas_por_mes
     
 

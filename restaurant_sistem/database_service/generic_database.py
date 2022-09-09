@@ -1,15 +1,12 @@
-class CustomersDataBase:
-    """Esta es una clase que representa los datos de los clientes del restaurante 
-    y implementa algunas operaciones.
-    """
+class GenericDataBase:
 
-    def __init__(self, database_name):  #simplemente una clase que recibe el nombre de la base de datos
+    def __init__(self, database_name: str)->None:  #simplemente una clase que recibe el nombre de la base de datos
         self.name = database_name
 
         self.data = {}  #diccionario
         self.id_counter = 0
     
-    def create(self, data: dict)->int:
+    def create(self, data: dict)->int:#podria pasar en ves del identificador la cedula (en ves de data dedula)
         """ Este metodo agrega un registro en la base de datos y returna su ID.
 
         Args:

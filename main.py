@@ -1,30 +1,54 @@
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 
-from restaurant_sistem.database_service.customers import CustomersDataBase
-from restaurant_sistem.statistic.customers import metricas_cliente
+from restaurant_sistem import (
+    ClientesDataBase,
+    EmpleadosDataBase,
+    metricas_cliente,
+    metricas_empleados 
+)  
 
 
-def execute(args):
-    customers_database = CustomersDataBase(database_name = args.database_name)
-    
+def execute(args , Namespace)->None:
+    database  = None
+    if args.database_name == "clientes":
+        database = ClientesDataBase()
+    if arg.database_name == "empleados":
+        database == EmpleadosDataBase()    
     while True:
-        # nombre, edad, telefono, numero_factura, mes
+        # clientes : nombre, edad, telefono, numero_factura, mes, costo, propina
+        # empleados: nombre, edad, telefono, numero_cuenta, mes, total_dias_trabajados,  sueldo.
+        #la letra c identifica clientes y la letra e a empleados
+        #no se si una de las entidades tiene mas datos que sucede
         user_input = input("Ingrese los datos del cliente:")
-        nombre, edad, numero_celular,numero_factura, mes, costo, propina= user_input.split(" ")
+        rol, nombre, edad, numero_celular,numero_factura_or_cuenta, mes, costo_or_total_dias_trabajados, propina_or_salario= user_input.split(" ")
 
-        customers_id = customers_database.create({
+        if rol == "c":
+            clientes_id = database.create({
             "nombre": nombre,
-            "edad": edad,
-            "numero_celular": numero_celular,
-            "numero_factura": numero_factura,
-            "mes": mes,
-            "costo": costo,
-            "propina": propina
+            "edad": int(edad),
+            "numero_celular": int(numero_celular),
+            "numero_factura": int(numero_factura_or_cuenta),
+            "mes": int(mes),
+            "costo": float(costo_or_total_dias_trabajados),
+            "propina": float(propina_or_salario)
+            })
+            metricas_cliente(database)
 
-        })
-        print(metricas_cliente(customers_database))
 
-def main():
+        if rol == "e":
+            clientes_id = database.create({
+            "nombre": nombre,
+            "edad": int(edad),
+            "numero_celular": int(numero_celular),
+            "cuenta": int(numero_factura_or_cuenta),
+            "mes": int(mes),
+            "total_dias_trabajados": float(costo_or_total_dias_trabajados),
+            "salario": float(propina_or_salario)
+            })
+            metricas_empleados(database)
+        
+        
+def main()->None:
     parser = ArgumentParser()
 
     parser.add_argument(
@@ -33,10 +57,8 @@ def main():
     )
     args = parser.parse_args()
     execute(args)
-
-
+    
+    
 if __name__ == "__main__":
     main()
-
-
 
