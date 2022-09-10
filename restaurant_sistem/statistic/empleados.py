@@ -7,6 +7,8 @@ def get_edad_media(database)->float:
     return mean/database.count()
 
 
+
+
 def get_salario_medio(database)->float:
     data = database.get_all_data()
 
@@ -14,6 +16,8 @@ def get_salario_medio(database)->float:
     for empleados_data in data.values():
         mean += empleados_data["salario"]
     return mean/database.count()
+
+
 
 def metricas_empleados(database):
     print("=" * 80)
