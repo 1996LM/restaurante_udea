@@ -1,13 +1,15 @@
 from argparse import ArgumentParser, Namespace
 # esta libreria ayuda a definir argumenos que le puedo pasar a un programa
 
-from restaurant_sistem import (
+from restaurant_sistem import(
     ClientesDataBase,
     EmpleadosDataBase,
     SedesDataBase,
     ProveedoresDataBase,
     metricas_cliente,
-    metricas_empleados 
+    metricas_empleados ,
+    metricas_proveedores,
+    metricas_sedes
 )
 from restaurant_sistem.database_service.proveedores import ProveedoresDataBase
 from restaurant_sistem.database_service.sedes import SedesDataBase  
@@ -35,7 +37,7 @@ def execute(args , Namespace)->None:
 
         
         if rol == "s":
-            clientes_id = database.create({
+            sedes_id = database.create({
             "direccion": nombre_or_direccion,
             "producto": int(edad_or_producto),
             "numero_celular": int(numero_celular),
@@ -65,7 +67,7 @@ def execute(args , Namespace)->None:
             "numero_celular": int(numero_celular),
             "cuenta": int(numero_factura_or_cuenta_or_servicios),
             "mes": int(mes),
-            "cantidad": float(costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo),
+            "cantidad": int(costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo),
             "valor_unidad": float(propina_or_salario_or_valor_unidad_or_impuestos)
             })
             metricas_proveedores(database)    

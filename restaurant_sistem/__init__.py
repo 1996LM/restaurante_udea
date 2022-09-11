@@ -5,4 +5,4 @@ from restaurant_sistem.database_service.sedes import SedesDataBase
 from restaurant_sistem.statistic.clientes import metricas_cliente
 from restaurant_sistem.statistic.empleados import metricas_empleados
 from restaurant_sistem.statistic.sedes import metricas_sedes
-from restaurant_sistem.statistic.empleados import metricas_proveedores
+from restaurant_sistem.statistic.proveedores import metricas_proveedores
