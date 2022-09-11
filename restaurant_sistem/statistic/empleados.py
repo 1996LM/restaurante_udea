@@ -1,4 +1,12 @@
 def get_edad_media(database)->float:
+    """Esta funcion calcula la edad media de los empleados de el restaurante.
+
+    Args:
+        database (_type_): Recibe la base de datos de los empleados del restaurante.
+
+    Returns:
+        float: La edad media de los empleados del restaurante
+    """
     data = database.get_all_data()
 
     mean=0
@@ -10,6 +18,14 @@ def get_edad_media(database)->float:
 
 
 def get_salario_medio(database)->float:
+    """Esat funcion calcula el salario medio de los empleados del restaurante.
+
+    Args:
+        database (_type_):Recibe la base de datos de los empleados del restaurante.
+
+    Returns:
+        float: El salario medio de los empleados del restaurante.
+    """
     data = database.get_all_data()
 
     mean=0
