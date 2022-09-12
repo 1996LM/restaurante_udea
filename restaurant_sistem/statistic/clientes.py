@@ -33,7 +33,7 @@ def get_costo_medio(database)->float:
     return mean/database.count()
 
 def visitas_mes(database):
-    """Esta funcion calcula el numero total de vicitas realizadas por el cliente al mes.
+    """Esta funcion calcula el numero total de vicitas realizadas por los clientes al mes.
 
     Args:
         database (_type_): Recibe la base de datos de los clientes del restaurante.

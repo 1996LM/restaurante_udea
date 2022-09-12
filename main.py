@@ -6,13 +6,15 @@ from restaurant_sistem import(
     EmpleadosDataBase,
     SedesDataBase,
     ProveedoresDataBase,
+    FacturasDataBase,
     metricas_cliente,
     metricas_empleados ,
     metricas_proveedores,
-    metricas_sedes
+    metricas_sedes, 
+    metricas_facturas
 )
-from restaurant_sistem.database_service.proveedores import ProveedoresDataBase
-from restaurant_sistem.database_service.sedes import SedesDataBase  
+
+
 
 
 def execute(args , Namespace)->None:
@@ -25,63 +27,76 @@ def execute(args , Namespace)->None:
         database == ProveedoresDataBase()  
     if args.database_name == "sedes":
         database = SedesDataBase()
+    if args.database_name == "facturas":
+        database == FacturasDataBase
     while True:
         # clientes : nombre, edad, telefono, numero_factura, mes, costo, propina
         # empleados: nombre, edad, telefono, numero_cuenta, mes, total_dias_trabajados,  sueldo.
         #provedores: nombre, producto, telefono, numero_cuenta, mes, cantidad, valor_unidad.
         #la letra c identifica clientes,  e identifica empleados, p identifica provedores,
-        #  m identifica menus y s identifica sedes
+        #  m identifica menus, f identifica facturas y s identifica sedes
         #no se si una de las entidades tiene mas datos que sucede
-        user_input = input("Ingrese los datos de necesarios:")
-        rol, nombre_or_direccion, edad_or_producto, numero_celular,numero_factura_or_cuenta_or_servicios, mes, costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo, propina_or_salario_or_valor_unidad_or_impuestos = user_input.split(" ")
+        user_input = input("Ingrese los datos necesarios:")
+        rol, nombre, edad_or_producto_or_direccion_or_cedula, numero_celular,numero_factura_or_cuenta_or_servicios_or_puntos, mes, costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo, propina_or_salario_or_valor_unidad_or_impuestos_forma_pago = user_input.split(" ")
 
-        
+        if rol == "f":
+            facturas_id = database.create({
+            "nombre_cliente": nombre,
+            "cedula": int(edad_or_producto_or_direccion_or_cedula),
+            "numero_celular": int(numero_celular),
+            "puntos_acumulados": int(numero_factura_or_cuenta_or_servicios_or_puntos),
+            "mes": int(mes),
+            "costo": float(costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo),
+            "forma de pago": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
+            })
+            metricas_facturas(database)
+            
         if rol == "s":
             sedes_id = database.create({
-            "direccion": nombre_or_direccion,
-            "producto": int(edad_or_producto),
+            "nombre": nombre,
+            "direccion": int(edad_or_producto_or_direccion_or_cedula),
             "numero_celular": int(numero_celular),
-            "servicios": int(numero_factura_or_cuenta_or_servicios),
+            "servicios": int(numero_factura_or_cuenta_or_servicios_or_puntos),
             "mes": int(mes),
             "valor_arriendo": float(costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo),
-            "impuestos": float(propina_or_salario_or_valor_unidad_or_impuestos)
+            "impuestos": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
             })
             metricas_sedes(database)
 
         if rol == "c":
             clientes_id = database.create({
-            "nombre": nombre_or_direccion,
-            "edad": int(edad_or_producto),
+            "nombre": nombre,
+            "edad": int(edad_or_producto_or_direccion_or_cedula),
             "numero_celular": int(numero_celular),
-            "numero_factura": int(numero_factura_or_cuenta_or_servicios),
+            "numero_factura": int(numero_factura_or_cuenta_or_servicios_or_puntos),
             "mes": int(mes),
             "costo": float(costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo),
-            "propina": float(propina_or_salario_or_valor_unidad_or_impuestos)
+            "propina": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
             })
             metricas_cliente(database)
 
         if rol == "p":
             proveedores_id = database.create({
-            "nombre": nombre_or_direccion,
-            "producto": int(edad_or_producto),
+            "nombre": nombre,
+            "producto": int(edad_or_producto_or_direccion_or_cedula),
             "numero_celular": int(numero_celular),
-            "cuenta": int(numero_factura_or_cuenta_or_servicios),
+            "cuenta": int(numero_factura_or_cuenta_or_servicios_or_puntos),
             "mes": int(mes),
             "cantidad": int(costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo),
-            "valor_unidad": float(propina_or_salario_or_valor_unidad_or_impuestos)
+            "valor_unidad": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
             })
             metricas_proveedores(database)    
 
 
         if rol == "e":
             empleados_id = database.create({
-            "nombre": nombre_or_direccion,
-            "edad": int(edad_or_producto),
+            "nombre": nombre,
+            "edad": int(edad_or_producto_or_direccion_or_cedula),
             "numero_celular": int(numero_celular),
-            "cuenta": int(numero_factura_or_cuenta_or_servicios),
+            "cuenta": int(numero_factura_or_cuenta_or_servicios_or_puntos),
             "mes": int(mes),
             "total_dias_trabajados": float(costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo),
-            "salario": float(propina_or_salario_or_valor_unidad_or_impuestos)
+            "salario": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
             })
             metricas_empleados(database)
         
@@ -91,7 +106,7 @@ def main()->None:
 
     parser.add_argument(
         "-dn", "--database-name", type = str, 
-        choices = ["sedes", "empleados","clientes", "proveedores", "productos", "menus"]
+        choices = ["sedes", "empleados","clientes", "proveedores", "facturas"]
     )
     args = parser.parse_args()
     execute(args)

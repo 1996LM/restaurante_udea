@@ -1,10 +1,10 @@
 from restaurant_sistem.database_service.generic_database import GenericDataBase
-
-class EmpleadosDataBase(GenericDataBase):
-    """Genera la base de datos de los empleados.
+"""Genera la base de datos de las sedes del restaurante.
 
     Args:
         GenericDataBase (_type_): Recibe la base de datos genérica. 
     """
+
+class FacturasDataBase(GenericDataBase):
     def __init__(self) -> None:
-        super().__init__(database_name = "empleados")
+        super().__init__(database_name = "facturas")

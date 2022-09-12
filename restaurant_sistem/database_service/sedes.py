@@ -1,4 +1,9 @@
 from restaurant_sistem.database_service.generic_database import GenericDataBase
+"""Genera la base de datos de las sedes del restaurante.
+
+    Args:
+        GenericDataBase (_type_): Recibe la base de datos genérica. 
+    """
 
 class SedesDataBase(GenericDataBase):
     def __init__(self) -> None:
