@@ -53,7 +53,8 @@ def execute(args: Namespace )->None:
             "costo": float(costo_or_total_dias_trabajados_or_cantidad_or_valor_arriendo),
             "forma de pago": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
             })
-            #metricas_facturas(database)
+            metricas_facturas(database)
+            facturas.write('metricas_factura=%s' %metricas_facturas)
 
         if rol == "s":
             sedes_id = database.create({
@@ -66,6 +67,7 @@ def execute(args: Namespace )->None:
             "impuestos": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
             })
             metricas_sedes(database)
+            sedes.write('metricas_sedes=%s' %metricas_sedes)
 
         if rol == "c":
             clientes_id = database.create({
@@ -79,6 +81,7 @@ def execute(args: Namespace )->None:
             })
 
             metricas_cliente(database)
+            clientes.write('metricas_cliente=%s' %metricas_cliente)
 
         if rol == "p":
             proveedores_id = database.create({
@@ -91,6 +94,7 @@ def execute(args: Namespace )->None:
             "valor_unidad": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
             })
             metricas_proveedores(database)    
+            proveedores.write('metricas_proveedores=%s' %metricas_proveedores)
 
 
         if rol == "e":
@@ -104,6 +108,7 @@ def execute(args: Namespace )->None:
             "salario": float(propina_or_salario_or_valor_unidad_or_impuestos_forma_pago)
             })
             metricas_empleados(database)
+            empleados.write('metricas_empleados=%s' %metricas_empleados)
         
         
 def main()->None:
