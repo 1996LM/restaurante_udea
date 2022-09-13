@@ -22,7 +22,7 @@ def get_costo_medio(database)->float:
         database (_type_): recibe la base de datos de los clientes del restaurante.
 
     Returns:
-        float:  La costo media de los clientes del restaurante.
+        float:  La costo media de las compras realizadas por los  clientes del restaurante.
     """
 
     data = database.get_all_data()
@@ -33,7 +33,7 @@ def get_costo_medio(database)->float:
     return mean/database.count()
 
 def visitas_mes(database):
-    """Esta funcion calcula el numero total de vicitas realizadas por los clientes al mes.
+    """Esta funcion calcula el numero total de vicitas que tuvo el restaurante al mes.
 
     Args:
         database (_type_): Recibe la base de datos de los clientes del restaurante.
@@ -72,7 +72,7 @@ def visitas_mes_promedio(database):
 
 def metricas_cliente(database)-> None:
     print(f"Edad mmedia de los clientes : {get_edad_media(database)}")
-    print(f"Ccosto medio de las compras de los clientes : {get_costo_medio(database)}")
+    print(f"Costo medio de las compras de los clientes : {get_costo_medio(database)}")
     print(f"Numero de veces que el cliente visita el restaurante por mes : {visitas_mes(database)}")
     print(f"Visitas en promedio del cliente por mes : {visitas_mes_promedio(database)}")
     print(f"conteo de clientes:{database.count()}")
